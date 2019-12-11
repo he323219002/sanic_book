@@ -1,6 +1,7 @@
 from peewee import Model, CharField, BooleanField, DateTimeField, IntegerField
 from model import base_model as BaseModel
 from utils import timezone
+from werkzeug.security import generate_password_hash,check_password_hash
 from settings import config
 
 
@@ -15,6 +16,7 @@ class User(Model):
     is_admin = BooleanField(default=False)
     register_time = DateTimeField(null=True, default=timezone.now())
     version = IntegerField(verbose_name='密码版本', default=1)
+    email = CharField(20,verbose_name='邮箱',null=True)
     # 0女1男
     gender = CharField(1, verbose_name='性别', default='1')
     avatar = CharField(256, verbose_name='头像', default='')
@@ -25,6 +27,15 @@ class User(Model):
     def __str__(self):
         return self.get_username()
 
+    def set_password(self,raw_password):
+        self.password = generate_password_hash(raw_password)
+        return self.password
+
+    def check_password(self,raw_password):
+        return check_password_hash(self.password,raw_password)
+
     def save(self, *args, **kwargs):
-        ...
-        # todo 保存不可见密码，校验密码
+        super().save(*args,**kwargs)
+
+    class Meta:
+        table_name = 'system_user'

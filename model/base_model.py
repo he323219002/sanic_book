@@ -1,15 +1,13 @@
 from peewee import MySQLDatabase, Model, CharField, DateTimeField
 from playhouse.pool import PooledMySQLDatabase
-from Louis.utils import timezone
-from settings import base
-
+from utils import timezone
 
 
 db = PooledMySQLDatabase("louis", host="127.0.0.1", port=3306,
                          user='root', password='he123456', charset='utf8mb4',
                          max_connections=4)
 
-
+a = 3
 
 class BaseModel(Model):
     uid = CharField(verbose_name='ID',max_length=24,index=True,unique=True,primary_key=True)
