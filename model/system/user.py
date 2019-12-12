@@ -38,4 +38,5 @@ class User(Model):
         super().save(*args,**kwargs)
 
     class Meta:
+        database = BaseModel.db
         table_name = 'system_user'
