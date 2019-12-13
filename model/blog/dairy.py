@@ -8,7 +8,6 @@ class Dairy(BaseModel):
     content = TextField(32, verbose_name='内容')
 
 
-
     class Meta:
         table_name = "louis_dairy"
 
