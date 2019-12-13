@@ -1,6 +1,6 @@
 from model.base_model import BaseModel
 from peewee import *
-from playhouse.signals import post_save
+from playhouse.signals import pre_save
 from utils.uid import gen_id
 
 class Article(BaseModel):
@@ -16,11 +16,12 @@ class Article(BaseModel):
     class Meta:
         table_name = "louis_article"
 
-@post_save(sender=Article)
-def louis_articl_handler(sender,instance=None,created=False,**kwargs):
-    if instance.uid:
-        uid = gen_id()
-        instance.uid = f'{uid}'
+
+# @pre_save(sender=Article)
+# def louis_articl_handler(sender,instance=None,created=False,**kwargs):
+#     if instance.uid:
+#         uid = gen_id()
+#         instance.uid = f'{uid}'
 
 
 
@@ -33,7 +34,7 @@ class Comment(BaseModel):
     class Meta:
         table_name = "louis_comment"
 
-@post_save(sender=Comment)
+@pre_save(sender=Comment)
 def louis_comment_handler(sender,instance=None,created=False,**kwargs):
     if instance.uid:
         uid = gen_id()

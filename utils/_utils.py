@@ -4,6 +4,8 @@ from peewee_migrate import Router
 from model.blog.article import Article,Comment
 from model.blog.dairy import Dairy
 from model.system.user import User
+from utils.uid import gen_id
+
 import traceback
 
 
@@ -18,12 +20,23 @@ if __name__ == '__main__':
     try:
         base_model.db.create_tables([Article,Comment,Dairy,User])
     except Exception:
-        # traceback.print_exc()
+        traceback.print_exc()
         pass
-    test_obj = Dairy(
-        title='xxx',
-        content='232'
-    )
-    test_obj.save()
+res1 = gen_id()
+print(res1)
+
+# new_obj = Article(
+#     title='a'
+# )
+# new_obj.save()
+
+
+test_obj = Dairy(
+    title='xx',
+    content='232',
+)
+test_obj.save()
+
+    # print(test_obj.content)
     # migrate()
 
