@@ -1,7 +1,10 @@
 from sanic import Sanic
+from view.login import bp
 from model import base_model
 
+
 app = Sanic(__name__)
+app.blueprint((bp))
 # todo 了解一下里面的参数用途
 
 db = base_model.db
@@ -17,4 +20,4 @@ async def handle_response(request, response):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=8080,debug=True)
